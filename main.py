@@ -33,6 +33,23 @@ def show_all():
             l.append(f'{k}: {v}')
     return '\n'.join(l)
 def check_comand(string):
+    def checks(name_command,list):
+        coman={'add':3,
+               'change':3,
+               'phone':2}
+        if len(list)==coman[name_command]:
+            if any(char.isdigit() for char in list[1])==False:
+                if len(list)==2:
+                    return phone(string)
+                else:
+                    if any(char.isdigit() for char in list[2])==False:
+                        return 'Give me  phone please without letter'
+                    else:
+                        return dict_1[x](string)
+            else:
+                return 'Enter name person not a number'
+        else:
+            return 'Give me name and phone please'
     dict_1={1:exit,
             0:command,
             2:add,
@@ -48,7 +65,7 @@ def check_comand(string):
     try:
         return dict_1[x]()
     except TypeError:
-        return dict_1[x](string)
+        return checks(j[0].lower(),j)
 def main():
     global t
     while t:
