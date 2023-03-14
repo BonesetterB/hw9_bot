@@ -1,8 +1,20 @@
 memory=[]
-#Можете залишити у коментаріях підсказку як опрацювати помилку, бо я не зовсім розумію як це зробити(
-def add_num(string):
+t=True
+def exit():
+    global t
+    t=False
+    return "Good bye!"
+def command():
+    l=['exit: exit',
+       'add: add new contact need write name and number with space command shoude be look like this "add name number"',
+       'change: change numbers already created contact command shoude be look like this "change name number"',
+       'show_all: show all the contats',
+       'phone: this command shows the persons phone command shoude be look like this "change name number"']
+    return '\n'.join(l)
+def add(string):
     l=string.split(' ')
     memory.append({l[1]:l[2]})
+    return 'Number was success add!'
 def phone(string):
     l=string.strip()[6:]
     for i in memory:
@@ -20,18 +32,26 @@ def show_all():
         for k, v in i.items():
             l.append(f'{k}: {v}')
     return '\n'.join(l)
+def check_comand(string):
+    dict_1={1:exit,
+            0:command,
+            2:add,
+            4:phone,
+            3:change,
+            5:show_all}    
+    coommand=["command","exit",'add','change','phone','show_all']
+    j=string.split(' ')
+    try:
+        x=coommand.index(j[0].lower())
+    except ValueError:
+        return('You write wrong command, for  to get a list of commands write command')
+    try:
+        return dict_1[x]()
+    except TypeError:
+        return dict_1[x](string)
 def main():
-    while True:
+    global t
+    while t:
         x=input()
-        if x.lower()=="good bye" or x.lower()=="close" or x.lower()=="exit":
-            print("Good bye!")
-            break
-        elif x.strip()[0:3].lower()=='add':
-            add_num(x)
-        elif x.strip()[0:6].lower()=='change':
-            print(change(x))
-        elif x.strip()[0:5].lower()=='phone':
-            print(phone(x))
-        elif x.lower()=='show all':
-            print(show_all())
+        print(check_comand(x))
 main()
