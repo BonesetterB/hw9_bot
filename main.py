@@ -46,7 +46,7 @@ def phone(string):
     # for k in filter(lambda x:x==name_person, memory.keys()):
     #     return memory[k]
 
-
+@check_command
 def change(string):
     data =string.split(' ')
     memory[data[0]] = int(data[1])
@@ -106,7 +106,7 @@ COMMANDS = {command: 'command',
 
 def command_handler(text: str):
     for command, key_word in COMMANDS.items():
-        if text.startswith(key_word):
+        if text.lower().startswith(key_word):
             return command, text.replace(key_word, '').strip()
     return None, 'You write wrong command, for  to get a list of commands write command'
 
